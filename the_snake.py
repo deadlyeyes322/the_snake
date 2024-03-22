@@ -42,8 +42,24 @@ pygame.display.set_caption('Змейка')
 clock = pygame.time.Clock()
 
 
-# Тут опишите все классы игры.
-...
+class GameObject:
+    """Базовый класс, от которого наследуются другие игровые объекты."""
+
+    def __init__(self, body_color):
+        self.body_color = body_color
+        self.position = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
+
+
+class Snake(GameObject):
+    """Класс, унаследованный от GameObject, описывающий змейку."""
+
+    pass
+
+
+class Apple(GameObject):
+    """Класс, унаследованный от GameObject, описывающий яблоко."""
+
+    pass
 
 
 def main():

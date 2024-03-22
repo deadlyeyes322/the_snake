@@ -45,8 +45,8 @@ clock = pygame.time.Clock()
 class GameObject:
     """Базовый класс, от которого наследуются другие игровые объекты."""
 
-    def __init__(self, body_color):
-        self.body_color = body_color
+    def __init__(self):
+        self.body_color = (0, 0, 0)
         self.position = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
 
     def draw(self):
@@ -63,19 +63,21 @@ class Snake(GameObject):
 class Apple(GameObject):
     """Класс, унаследованный от GameObject, описывающий яблоко."""
 
-    def __init__(self, body_color):
-        self.body_color = (255, 0, 0)
-        self.position = randint(SCREEN_WIDTH), randint(SCREEN_HEIGHT)
+    def __init__(self):
+        self.body_color = APPLE_COLOR
+        self.position = randint(0, GRID_WIDTH) * GRID_SIZE, \
+            randint(0, GRID_HEIGHT) * GRID_SIZE
 
     def draw(self):
         """Метод отрисовывающий яблоко"""
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-
+        
     def randomize_position(self):
         """Метод устанавливающий случайное положение яблока"""
-        new_apple_coordinates = randint(SCREEN_WIDTH), randint(SCREEN_HEIGHT)
+        new_apple_coordinates = randint(0, GRID_WIDTH) * GRID_SIZE, \
+            randint(0, GRID_HEIGHT) * GRID_SIZE
 
         if new_apple_coordinates != self.position:
             self.position = new_apple_coordinates
@@ -89,8 +91,11 @@ def main():
     ...
 
     while True:
-    
+        screen.fill(BORDER_COLOR)
+        
+        pygame.display.flip()
         clock.tick(SPEED)
+
 
         # Тут опишите основную логику игры.
         ...

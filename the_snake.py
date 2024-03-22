@@ -57,7 +57,57 @@ class GameObject:
 class Snake(GameObject):
     """Класс, унаследованный от GameObject, описывающий змейку."""
 
-    pass
+    def __init__(self):
+        self.length = 1
+        self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
+        self.last = None
+        self.direction = RIGHT
+        self.next_direction = None
+        self.body_color = SNAKE_COLOR
+
+    def draw(self):
+        for position in self.positions[:-1]:
+            rect = (pygame.Rect(position, (GRID_SIZE, GRID_SIZE)))
+            pygame.draw.rect(screen, self.body_color, rect)
+            pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
+        # Отрисовка головы змейки
+        head_rect = pygame.Rect(self.positions[0], (GRID_SIZE, GRID_SIZE))
+        pygame.draw.rect(screen, self.body_color, head_rect)
+        pygame.draw.rect(screen, BORDER_COLOR, head_rect, 1)
+
+        # Затирание последнего сегмента
+        if self.last:
+            last_rect = pygame.Rect(self.last, (GRID_SIZE, GRID_SIZE))
+            pygame.draw.rect(screen, BOARD_BACKGROUND_COLOR, last_rect)
+
+    def update_direction(self):
+        """Метод обновления направления после нажатия на кнопку"""
+
+        if self.next_direction:
+            self.direction = self.next_direction
+            self.next_direction = None
+
+    def move(self):
+        head = self.get_head_position()
+        head = (head[0] + self.direction * GRID_SIZE, head[1] + self.direction * GRID_SIZE)
+        self.positions.insert(0, (head[0] % SCREEN_WIDTH, head[1] % SCREEN_HEIGHT))
+        last = self.positions.pop()
+        
+        if self.length > 2 and head in self.positions[2::]:
+            self.reset()
+        
+        if self.length != len(self.positions):
+            self.positions.append(last)
+        
+        self.last = self.positions[-1] * (self.length > 1)
+
+    def get_head_position(self):
+        return self.positions[0]
+    
+    def reset(self):
+        self.__init__()
+        self.direction = choice([RIGHT, LEFT, UP, DOWN])
 
 
 class Apple(GameObject):

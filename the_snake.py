@@ -49,6 +49,10 @@ class GameObject:
         self.body_color = body_color
         self.position = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
 
+    def draw(self):
+        """Метод определяющий, как объект будет отрисовываться."""
+        pass
+
 
 class Snake(GameObject):
     """Класс, унаследованный от GameObject, описывающий змейку."""
@@ -59,18 +63,37 @@ class Snake(GameObject):
 class Apple(GameObject):
     """Класс, унаследованный от GameObject, описывающий яблоко."""
 
-    pass
+    def __init__(self, body_color):
+        self.body_color = (255, 0, 0)
+        self.position = randint(SCREEN_WIDTH), randint(SCREEN_HEIGHT)
+
+    def draw(self):
+        """Метод отрисовывающий яблоко"""
+        rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
+        pygame.draw.rect(screen, self.body_color, rect)
+        pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
+
+    def randomize_position(self):
+        """Метод устанавливающий случайное положение яблока"""
+        new_apple_coordinates = randint(SCREEN_WIDTH), randint(SCREEN_HEIGHT)
+
+        if new_apple_coordinates != self.position:
+            self.position = new_apple_coordinates
+        else:
+            self.randomize_position()
+
 
 
 def main():
     # Тут нужно создать экземпляры классов.
     ...
 
-    # while True:
-    #     clock.tick(SPEED)
+    while True:
+    
+        clock.tick(SPEED)
 
         # Тут опишите основную логику игры.
-        # ...
+        ...
 
 
 if __name__ == '__main__':

@@ -93,7 +93,7 @@ class Snake(GameObject):
         """Метод изменяющий положение змейки на экране."""
         head = self.get_head_position()
         head = (
-            head[0] + self.direction[0] * GRID_SIZE, 
+            head[0] + self.direction[0] * GRID_SIZE,
             head[1] + self.direction[1] * GRID_SIZE)
         self.positions.insert(
             0, (head[0] % SCREEN_WIDTH, head[1] % SCREEN_HEIGHT))

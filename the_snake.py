@@ -58,6 +58,7 @@ class Snake(GameObject):
     """Класс, унаследованный от GameObject, описывающий змейку."""
 
     def __init__(self):
+        self.position = SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2
         self.length = 1
         self.positions = [(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2)]
         self.last = None
@@ -91,22 +92,25 @@ class Snake(GameObject):
     def move(self):
         """Метод изменяющий положение змейки на экране."""
         head = self.get_head_position()
-        head = (head[0] + self.direction[0] * GRID_SIZE, head[1] + self.direction[1] * GRID_SIZE)
-        self.positions.insert(0, (head[0] % SCREEN_WIDTH, head[1] % SCREEN_HEIGHT))
+        head = (
+            head[0] + self.direction[0] * GRID_SIZE, 
+            head[1] + self.direction[1] * GRID_SIZE)
+        self.positions.insert(
+            0, (head[0] % SCREEN_WIDTH, head[1] % SCREEN_HEIGHT))
         last = self.positions.pop()
-        
+
         if self.length > 2 and head in self.positions[2::]:
             self.reset()
-        
+
         if self.length != len(self.positions):
             self.positions.append(last)
-        
+
         self.last = self.positions[-1] * (self.length > 1)
 
     def get_head_position(self):
         """Функция для получения координат головы змеи."""
         return self.positions[0]
-    
+
     def reset(self):
         """Метод сбрасывающая все параметры."""
         self.__init__()
@@ -126,7 +130,7 @@ class Apple(GameObject):
         rect = pygame.Rect(self.position, (GRID_SIZE, GRID_SIZE))
         pygame.draw.rect(screen, self.body_color, rect)
         pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
-        
+
     def randomize_position(self):
         """Метод устанавливающий случайное положение яблока"""
         new_apple_coordinates = randint(0, GRID_WIDTH) * GRID_SIZE, \
@@ -175,7 +179,7 @@ def main():
         if snake.get_head_position() == apple.position:
             snake.length += 1
             apple.randomize_position()
-        
+
         pygame.display.flip()
         clock.tick(SPEED)
 

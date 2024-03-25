@@ -49,8 +49,8 @@ class GameObject:
     def draw(self):
         """Метод определяющий, как объект будет отрисовываться."""
         raise NotImplementedError(
-            f"В классе {self.__class__.__name__} метод draw не переопределен."
-            )
+            f'В классе {self.__class__.__name__}' 
+            f'метод draw не переопределен.')
 
     def get_rect(self, pos):
         return pg.Rect(pos, (GRID_SIZE, GRID_SIZE))

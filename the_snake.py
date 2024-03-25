@@ -177,8 +177,8 @@ def main():
         snake.draw()
         apple.draw()
 
-        if ((snake.length > 2) and
-                (snake.get_head_position() in snake.positions[2::])):
+        if ((snake.length > 2)
+                and (snake.get_head_position() in snake.positions[2::])):
             snake.reset()
 
         if snake.get_head_position() == apple.position:

@@ -167,7 +167,7 @@ def main():
 
     snake = Snake()
     apple = Apple()
-  
+
     while True:
         screen.fill(BOARD_BACKGROUND_COLOR)
 
@@ -177,8 +177,7 @@ def main():
         snake.draw()
         apple.draw()
 
-        if all(
-                (snake.length > 2),
+        if ((snake.length > 2) and
                 (snake.get_head_position() in snake.positions[2::])):
             snake.reset()
 

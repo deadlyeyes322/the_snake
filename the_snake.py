@@ -123,8 +123,8 @@ class Apple(GameObject):
 
     def __init__(self):
         self.body_color = APPLE_COLOR
-        self.position = (randint(0, GRID_WIDTH) * GRID_SIZE,
-                         randint(0, GRID_HEIGHT) * GRID_SIZE)
+        self.position = (0, 0)
+        self.randomize_position()
 
     def draw(self):
         """Метод отрисовывающий яблоко"""

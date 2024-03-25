@@ -53,7 +53,9 @@ class GameObject:
             f'метод draw не переопределен.')
 
     def get_rect(self, pos):
+        """Функция для получения pg.Rect."""
         return pg.Rect(pos, (GRID_SIZE, GRID_SIZE))
+
 
 class Snake(GameObject):
     """Класс, унаследованный от GameObject, описывающий змейку."""
@@ -122,7 +124,7 @@ class Apple(GameObject):
     def __init__(self):
         self.body_color = APPLE_COLOR
         self.position = (randint(0, GRID_WIDTH) * GRID_SIZE, 
-            randint(0, GRID_HEIGHT) * GRID_SIZE)
+                         randint(0, GRID_HEIGHT) * GRID_SIZE)
 
     def draw(self):
         """Метод отрисовывающий яблоко"""
@@ -133,7 +135,7 @@ class Apple(GameObject):
     def randomize_position(self):
         """Метод устанавливающий случайное положение яблока"""
         new_apple_coordinates = (randint(0, GRID_WIDTH) * GRID_SIZE, 
-            randint(0, GRID_HEIGHT) * GRID_SIZE)
+                                 randint(0, GRID_HEIGHT) * GRID_SIZE)
 
         if new_apple_coordinates != self.position:
             self.position = new_apple_coordinates
@@ -160,7 +162,6 @@ def handle_keys(game_object):
 
 def main():
     """Основная функция приложения."""
-
     # Инициализация PyGame:
     pg.init()
 

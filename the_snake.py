@@ -49,7 +49,7 @@ class GameObject:
     def draw(self):
         """Метод определяющий, как объект будет отрисовываться."""
         raise NotImplementedError(
-            f'В классе {self.__class__.__name__}' 
+            f'В классе {self.__class__.__name__}'
             f'метод draw не переопределен.')
 
     def get_rect(self, pos):
@@ -123,7 +123,7 @@ class Apple(GameObject):
 
     def __init__(self):
         self.body_color = APPLE_COLOR
-        self.position = (randint(0, GRID_WIDTH) * GRID_SIZE, 
+        self.position = (randint(0, GRID_WIDTH) * GRID_SIZE,
                          randint(0, GRID_HEIGHT) * GRID_SIZE)
 
     def draw(self):
@@ -134,7 +134,7 @@ class Apple(GameObject):
 
     def randomize_position(self):
         """Метод устанавливающий случайное положение яблока"""
-        new_apple_coordinates = (randint(0, GRID_WIDTH) * GRID_SIZE, 
+        new_apple_coordinates = (randint(0, GRID_WIDTH) * GRID_SIZE,
                                  randint(0, GRID_HEIGHT) * GRID_SIZE)
 
         if new_apple_coordinates != self.position:
@@ -167,18 +167,20 @@ def main():
 
     snake = Snake()
     apple = Apple()
-    
+  
     while True:
         screen.fill(BOARD_BACKGROUND_COLOR)
-        
+
         handle_keys(snake)
         snake.update_direction()
         snake.move()
         snake.draw()
         apple.draw()
 
-        if snake.length > 2 and snake.get_head_position() in snake.positions[2::]: 
-            snake.reset() 
+        if all(
+                (snake.length > 2),
+                (snake.get_head_position() in snake.positions[2::])):
+            snake.reset()
 
         if snake.get_head_position() == apple.position:
             snake.length += 1
